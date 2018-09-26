@@ -1,5 +1,7 @@
 package com.LMS.models;
 
+import java.time.LocalDate;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,10 +15,15 @@ public class StatusOfIssue {
 	private int memberId;
 	private String bookTitle;
 	private int catNo;
-	private String issueDate;
-	private String expiryDate;
+	private LocalDate issueDate;
+	private LocalDate expiryDate;
 	private int attemptsLeft;
-	
+	public int getMemberId() {
+		return memberId;
+	}
+	public void setMemberId(int memberId) {
+		this.memberId = memberId;
+	}
 	public String getBookTitle() {
 		return bookTitle;
 	}
@@ -29,16 +36,16 @@ public class StatusOfIssue {
 	public void setCatNo(int catNo) {
 		this.catNo = catNo;
 	}
-	public String getIssueDate() {
+	public LocalDate getIssueDate() {
 		return issueDate;
 	}
-	public void setIssueDate(String issueDate) {
+	public void setIssueDate(LocalDate issueDate) {
 		this.issueDate = issueDate;
 	}
-	public String getExpiryDate() {
+	public LocalDate getExpiryDate() {
 		return expiryDate;
 	}
-	public void setExpiryDate(String expiryDate) {
+	public void setExpiryDate(LocalDate expiryDate) {
 		this.expiryDate = expiryDate;
 	}
 	public int getAttemptsLeft() {
@@ -47,13 +54,14 @@ public class StatusOfIssue {
 	public void setAttemptsLeft(int attemptsLeft) {
 		this.attemptsLeft = attemptsLeft;
 	}
-	public int getMemberId() {
-		return memberId;
+	public int getID() {
+		return ID;
 	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ID;
 		result = prime * result + attemptsLeft;
 		result = prime * result + ((bookTitle == null) ? 0 : bookTitle.hashCode());
 		result = prime * result + catNo;
@@ -71,6 +79,8 @@ public class StatusOfIssue {
 		if (getClass() != obj.getClass())
 			return false;
 		StatusOfIssue other = (StatusOfIssue) obj;
+		if (ID != other.ID)
+			return false;
 		if (attemptsLeft != other.attemptsLeft)
 			return false;
 		if (bookTitle == null) {
@@ -96,9 +106,10 @@ public class StatusOfIssue {
 	}
 	@Override
 	public String toString() {
-		return "StatusOfIssue [memberId=" + memberId + ", bookTitle=" + bookTitle + ", catNo=" + catNo + ", issueDate="
-				+ issueDate + ", expiryDate=" + expiryDate + ", attemptsLeft=" + attemptsLeft + "]";
+		return "StatusOfIssue [ID=" + ID + ", memberId=" + memberId + ", bookTitle=" + bookTitle + ", catNo=" + catNo
+				+ ", issueDate=" + issueDate + ", expiryDate=" + expiryDate + ", attemptsLeft=" + attemptsLeft + "]";
 	}
+	
 	
 	
 }

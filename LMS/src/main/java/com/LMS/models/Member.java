@@ -15,14 +15,13 @@ public class Member {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int ID;
-	private String type;
-	private String dateOfMember;
-	private int noBooksIssued;
-	private int maxBookLimit;
 	private String name;
 	private String address;
 	private String phoneNo;
-	
+	private String registrationDate;
+	private int noBooksIssued;
+	private int maxBooksLimit;
+
 	@OneToMany(mappedBy = "ID", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH} )
 	private List<Loan> loans = new ArrayList<>();
 	
@@ -34,66 +33,109 @@ public class Member {
 	
 	@OneToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH} )
 	private List<StatusOfReturn> statusOfReturns = new ArrayList<>();
-	
-	public String getType() {
-		return type;
-	}
-	public void setType(String type) {
-		this.type = type;
-	}
-	public String getDateOfMember() {
-		return dateOfMember;
-	}
-	public void setDateOfMember(String dateOfMember) {
-		this.dateOfMember = dateOfMember;
-	}
-	public int getNoBooksIssued() {
-		return noBooksIssued;
-	}
-	public void setNoBooksIssued(int noBooksIssued) {
-		this.noBooksIssued = noBooksIssued;
-	}
-	public int getMaxBookLimit() {
-		return maxBookLimit;
-	}
-	public void setMaxBookLimit(int maxBookLimit) {
-		this.maxBookLimit = maxBookLimit;
-	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public String getAddress() {
 		return address;
 	}
+
 	public void setAddress(String address) {
 		this.address = address;
 	}
+
 	public String getPhoneNo() {
 		return phoneNo;
 	}
+
 	public void setPhoneNo(String phoneNo) {
 		this.phoneNo = phoneNo;
 	}
+
+	public String getRegistrationDate() {
+		return registrationDate;
+	}
+
+	public void setRegistrationDate(String registrationDate) {
+		this.registrationDate = registrationDate;
+	}
+
+	public int getNoBooksIssued() {
+		return noBooksIssued;
+	}
+
+	public void setNoBooksIssued(int noBooksIssued) {
+		this.noBooksIssued = noBooksIssued;
+	}
+
+	public int getMaxBooksLimit() {
+		return maxBooksLimit;
+	}
+
+	public void setMaxBooksLimit(int maxBooksLimit) {
+		this.maxBooksLimit = maxBooksLimit;
+	}
+
+	public List<Loan> getLoans() {
+		return loans;
+	}
+
+	public void setLoans(List<Loan> loans) {
+		this.loans = loans;
+	}
+
+	public List<Fine> getFines() {
+		return fines;
+	}
+
+	public void setFines(List<Fine> fines) {
+		this.fines = fines;
+	}
+
+	public List<StatusOfIssue> getStatusOfIssues() {
+		return statusOfIssues;
+	}
+
+	public void setStatusOfIssues(List<StatusOfIssue> statusOfIssues) {
+		this.statusOfIssues = statusOfIssues;
+	}
+
+	public List<StatusOfReturn> getStatusOfReturns() {
+		return statusOfReturns;
+	}
+
+	public void setStatusOfReturns(List<StatusOfReturn> statusOfReturns) {
+		this.statusOfReturns = statusOfReturns;
+	}
+
 	public int getID() {
 		return ID;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ID;
 		result = prime * result + ((address == null) ? 0 : address.hashCode());
-		result = prime * result + ((dateOfMember == null) ? 0 : dateOfMember.hashCode());
-		result = prime * result + maxBookLimit;
+		result = prime * result + ((fines == null) ? 0 : fines.hashCode());
+		result = prime * result + ((loans == null) ? 0 : loans.hashCode());
+		result = prime * result + maxBooksLimit;
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + noBooksIssued;
 		result = prime * result + ((phoneNo == null) ? 0 : phoneNo.hashCode());
-		result = prime * result + ((type == null) ? 0 : type.hashCode());
+		result = prime * result + ((registrationDate == null) ? 0 : registrationDate.hashCode());
+		result = prime * result + ((statusOfIssues == null) ? 0 : statusOfIssues.hashCode());
+		result = prime * result + ((statusOfReturns == null) ? 0 : statusOfReturns.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -110,12 +152,17 @@ public class Member {
 				return false;
 		} else if (!address.equals(other.address))
 			return false;
-		if (dateOfMember == null) {
-			if (other.dateOfMember != null)
+		if (fines == null) {
+			if (other.fines != null)
 				return false;
-		} else if (!dateOfMember.equals(other.dateOfMember))
+		} else if (!fines.equals(other.fines))
 			return false;
-		if (maxBookLimit != other.maxBookLimit)
+		if (loans == null) {
+			if (other.loans != null)
+				return false;
+		} else if (!loans.equals(other.loans))
+			return false;
+		if (maxBooksLimit != other.maxBooksLimit)
 			return false;
 		if (name == null) {
 			if (other.name != null)
@@ -129,19 +176,32 @@ public class Member {
 				return false;
 		} else if (!phoneNo.equals(other.phoneNo))
 			return false;
-		if (type == null) {
-			if (other.type != null)
+		if (registrationDate == null) {
+			if (other.registrationDate != null)
 				return false;
-		} else if (!type.equals(other.type))
+		} else if (!registrationDate.equals(other.registrationDate))
+			return false;
+		if (statusOfIssues == null) {
+			if (other.statusOfIssues != null)
+				return false;
+		} else if (!statusOfIssues.equals(other.statusOfIssues))
+			return false;
+		if (statusOfReturns == null) {
+			if (other.statusOfReturns != null)
+				return false;
+		} else if (!statusOfReturns.equals(other.statusOfReturns))
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
-		return "Member [ID=" + ID + ", type=" + type + ", dateOfMember=" + dateOfMember + ", noBooksIssued="
-				+ noBooksIssued + ", maxBookLimit=" + maxBookLimit + ", name=" + name + ", address=" + address
-				+ ", phoneNo=" + phoneNo + "]";
+		return "Member [ID=" + ID + ", name=" + name + ", address=" + address + ", phoneNo=" + phoneNo
+				+ ", registrationDate=" + registrationDate + ", noBooksIssued=" + noBooksIssued + ", maxBooksLimit="
+				+ maxBooksLimit + ", loans=" + loans + ", fines=" + fines + ", statusOfIssues=" + statusOfIssues
+				+ ", statusOfReturns=" + statusOfReturns + "]";
 	}
+	
 	
 	
 }

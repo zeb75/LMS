@@ -20,8 +20,8 @@ public class Loan {
 	private int ID;
 	private int bookId;
 	private LocalDate issueDate;	
-	private int MaxNoOfDays;
-	private int MaxNoOfBooks; 
+	private int maxNoOfDays;
+	private int maxNoOfBooks; 
 
 	@OneToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH} )
 	private Bill bill;
@@ -35,7 +35,6 @@ public class Loan {
 	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH} )
 	@JoinColumn(name= "member_id")
 	private Member members;
-
 
 	public int getBookId() {
 		return bookId;
@@ -54,19 +53,19 @@ public class Loan {
 	}
 
 	public int getMaxNoOfDays() {
-		return MaxNoOfDays;
+		return maxNoOfDays;
 	}
 
 	public void setMaxNoOfDays(int maxNoOfDays) {
-		MaxNoOfDays = maxNoOfDays;
+		this.maxNoOfDays = maxNoOfDays;
 	}
 
 	public int getMaxNoOfBooks() {
-		return MaxNoOfBooks;
+		return maxNoOfBooks;
 	}
 
 	public void setMaxNoOfBooks(int maxNoOfBooks) {
-		MaxNoOfBooks = maxNoOfBooks;
+		this.maxNoOfBooks = maxNoOfBooks;
 	}
 
 	public Bill getBill() {
@@ -93,6 +92,14 @@ public class Loan {
 		this.books = books;
 	}
 
+	public Member getMembers() {
+		return members;
+	}
+
+	public void setMembers(Member members) {
+		this.members = members;
+	}
+
 	public int getID() {
 		return ID;
 	}
@@ -102,13 +109,14 @@ public class Loan {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ID;
-		result = prime * result + MaxNoOfBooks;
-		result = prime * result + MaxNoOfDays;
 		result = prime * result + ((bill == null) ? 0 : bill.hashCode());
 		result = prime * result + bookId;
 		result = prime * result + ((books == null) ? 0 : books.hashCode());
 		result = prime * result + ((fines == null) ? 0 : fines.hashCode());
 		result = prime * result + ((issueDate == null) ? 0 : issueDate.hashCode());
+		result = prime * result + maxNoOfBooks;
+		result = prime * result + maxNoOfDays;
+		result = prime * result + ((members == null) ? 0 : members.hashCode());
 		return result;
 	}
 
@@ -122,10 +130,6 @@ public class Loan {
 			return false;
 		Loan other = (Loan) obj;
 		if (ID != other.ID)
-			return false;
-		if (MaxNoOfBooks != other.MaxNoOfBooks)
-			return false;
-		if (MaxNoOfDays != other.MaxNoOfDays)
 			return false;
 		if (bill == null) {
 			if (other.bill != null)
@@ -149,14 +153,24 @@ public class Loan {
 				return false;
 		} else if (!issueDate.equals(other.issueDate))
 			return false;
+		if (maxNoOfBooks != other.maxNoOfBooks)
+			return false;
+		if (maxNoOfDays != other.maxNoOfDays)
+			return false;
+		if (members == null) {
+			if (other.members != null)
+				return false;
+		} else if (!members.equals(other.members))
+			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Loan [ID=" + ID + ", bookId=" + bookId + ", issueDate=" + issueDate + ", MaxNoOfDays=" + MaxNoOfDays
-				+ ", MaxNoOfBooks=" + MaxNoOfBooks + ", bill=" + bill + ", fines=" + fines + ", books=" + books + "]";
+		return "Loan [ID=" + ID + ", bookId=" + bookId + ", issueDate=" + issueDate + ", maxNoOfDays=" + maxNoOfDays
+				+ ", maxNoOfBooks=" + maxNoOfBooks + ", bill=" + bill + ", fines=" + fines + ", books=" + books
+				+ ", members=" + members + "]";
 	}
-	
 
+	
 }

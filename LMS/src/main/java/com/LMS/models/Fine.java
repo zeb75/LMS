@@ -1,5 +1,7 @@
 package com.LMS.models;
 
+import java.time.LocalDate;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,7 +13,7 @@ public class Fine {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int ID;
 	private double amount;
-	private String date;
+	private LocalDate date;
 	
 	public double getAmount() {
 		return amount;
@@ -19,10 +21,10 @@ public class Fine {
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
-	public String getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
-	public void setDate(String date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 	public int getID() {
@@ -64,5 +66,5 @@ public class Fine {
 		return "Fine [ID=" + ID + ", amount=" + amount + ", date=" + date + "]";
 	}
 	
-	
+
 }

@@ -1,5 +1,7 @@
 package com.LMS.models;
 
+import java.time.LocalDate;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,10 +16,15 @@ public class StatusOfReturn {
 	private int memberId;
 	private String bookTitle;
 	private int catNo;
-	private String issueDate;
-	private String expiryDate;
+	private LocalDate issueDate;
+	private LocalDate expiryDate;
 	private double fineAmount;
-	
+	public int getMemberId() {
+		return memberId;
+	}
+	public void setMemberId(int memberId) {
+		this.memberId = memberId;
+	}
 	public String getBookTitle() {
 		return bookTitle;
 	}
@@ -30,16 +37,16 @@ public class StatusOfReturn {
 	public void setCatNo(int catNo) {
 		this.catNo = catNo;
 	}
-	public String getIssueDate() {
+	public LocalDate getIssueDate() {
 		return issueDate;
 	}
-	public void setIssueDate(String issueDate) {
+	public void setIssueDate(LocalDate issueDate) {
 		this.issueDate = issueDate;
 	}
-	public String getExpiryDate() {
+	public LocalDate getExpiryDate() {
 		return expiryDate;
 	}
-	public void setExpiryDate(String expiryDate) {
+	public void setExpiryDate(LocalDate expiryDate) {
 		this.expiryDate = expiryDate;
 	}
 	public double getFineAmount() {
@@ -48,13 +55,14 @@ public class StatusOfReturn {
 	public void setFineAmount(double fineAmount) {
 		this.fineAmount = fineAmount;
 	}
-	public int getMemberId() {
-		return memberId;
+	public int getID() {
+		return ID;
 	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ID;
 		result = prime * result + ((bookTitle == null) ? 0 : bookTitle.hashCode());
 		result = prime * result + catNo;
 		result = prime * result + ((expiryDate == null) ? 0 : expiryDate.hashCode());
@@ -74,6 +82,8 @@ public class StatusOfReturn {
 		if (getClass() != obj.getClass())
 			return false;
 		StatusOfReturn other = (StatusOfReturn) obj;
+		if (ID != other.ID)
+			return false;
 		if (bookTitle == null) {
 			if (other.bookTitle != null)
 				return false;
@@ -99,9 +109,11 @@ public class StatusOfReturn {
 	}
 	@Override
 	public String toString() {
-		return "StatusOfReturn [memberId=" + memberId + ", bookTitle=" + bookTitle + ", catNo=" + catNo + ", issueDate="
-				+ issueDate + ", expiryDate=" + expiryDate + ", fineAmount=" + fineAmount + "]";
+		return "StatusOfReturn [ID=" + ID + ", memberId=" + memberId + ", bookTitle=" + bookTitle + ", catNo=" + catNo
+				+ ", issueDate=" + issueDate + ", expiryDate=" + expiryDate + ", fineAmount=" + fineAmount + "]";
 	}
+
 	
-	
+
+
 }

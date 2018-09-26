@@ -10,10 +10,9 @@ public class Bill {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int billNo;
+	private int ID;
 	private String date;
 	private double amount;
-	
 	public String getDate() {
 		return date;
 	}
@@ -26,17 +25,17 @@ public class Bill {
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
-	public int getBillNo() {
-		return billNo;
+	public int getID() {
+		return ID;
 	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ID;
 		long temp;
 		temp = Double.doubleToLongBits(amount);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result + billNo;
 		result = prime * result + ((date == null) ? 0 : date.hashCode());
 		return result;
 	}
@@ -49,9 +48,9 @@ public class Bill {
 		if (getClass() != obj.getClass())
 			return false;
 		Bill other = (Bill) obj;
-		if (Double.doubleToLongBits(amount) != Double.doubleToLongBits(other.amount))
+		if (ID != other.ID)
 			return false;
-		if (billNo != other.billNo)
+		if (Double.doubleToLongBits(amount) != Double.doubleToLongBits(other.amount))
 			return false;
 		if (date == null) {
 			if (other.date != null)
@@ -62,8 +61,8 @@ public class Bill {
 	}
 	@Override
 	public String toString() {
-		return "Bill [billNo=" + billNo + ", date=" + date + ", amount=" + amount + "]";
+		return "Bill [ID=" + ID + ", date=" + date + ", amount=" + amount + "]";
 	}
 	
-	
+
 }
