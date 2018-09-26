@@ -1,5 +1,6 @@
 package com.LMS.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -19,7 +20,19 @@ public class Librarian {
 	private String phoneNo;
 	
 	@OneToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH} )
-	private List<Book> books;
+	private List<Book> books = new ArrayList<>();
+	
+	@OneToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH} )
+	private List<StatusOfReturn> statusOfReturn = new ArrayList<>();
+	
+	@OneToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH} )
+	private List<Bill> bills = new ArrayList<>();
+	
+	@OneToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH} )
+	private List<Loan> loans = new ArrayList<>();
+	
+	@OneToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH} )
+	private List<Member> members = new ArrayList<>();
 	
 	public String getName() {
 		return name;

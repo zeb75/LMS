@@ -1,10 +1,19 @@
 package com.LMS.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Member {
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int ID;
 	private String type;
 	private String dateOfMember;
@@ -13,6 +22,19 @@ public class Member {
 	private String name;
 	private String address;
 	private String phoneNo;
+	
+	@OneToMany(mappedBy = "ID", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH} )
+	private List<Loan> loans = new ArrayList<>();
+	
+	@OneToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH} )
+	private List<Fine> fines = new ArrayList<>();
+	
+	@OneToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH} )
+	private List<StatusOfIssue> statusOfIssues = new ArrayList<>();
+	
+	@OneToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH} )
+	private List<StatusOfReturn> statusOfReturns = new ArrayList<>();
+	
 	public String getType() {
 		return type;
 	}

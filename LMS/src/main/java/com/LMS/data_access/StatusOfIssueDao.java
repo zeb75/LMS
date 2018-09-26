@@ -2,6 +2,8 @@ package com.LMS.data_access;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface StatusOfIssueDao extends JpaRepository<StatusOfIssueDao,Integer> {
+import com.LMS.models.StatusOfIssue;
+
+public interface StatusOfIssueDao extends JpaRepository<StatusOfIssue,Integer> {
 
 }

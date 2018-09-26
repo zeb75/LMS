@@ -1,42 +1,50 @@
 package com.LMS.models;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
-public class Faculty extends Member {
+public class Category {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int ID;
+	
 	private String name;
-	private int experience;
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getExperience() {
-		return experience;
+
+	public int getID() {
+		return ID;
 	}
-	public void setExperience(int experience) {
-		this.experience = experience;
-	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + experience;
+		int result = 1;
+		result = prime * result + ID;
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (!super.equals(obj))
+		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Faculty other = (Faculty) obj;
-		if (experience != other.experience)
+		Category other = (Category) obj;
+		if (ID != other.ID)
 			return false;
 		if (name == null) {
 			if (other.name != null)
@@ -45,10 +53,12 @@ public class Faculty extends Member {
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
-		return "Faculty [name=" + name + ", experience=" + experience + "]";
+		return "Category [ID=" + ID + ", name=" + name + "]";
 	}
+	
 	
 	
 }

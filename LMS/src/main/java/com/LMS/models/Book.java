@@ -1,18 +1,42 @@
 package com.LMS.models;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 
 @Entity
 public class Book {
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int ID;
+	private String name;
 	private String ISBNNo;
 	private String author;
-	private String name;
+	private String publisher;
 	private int rackNo;
 	private String status;
 	private int edition;
 	private String dateOfPurchase;
-	private int noOfBooks;
+	
+	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH} )
+	@JoinColumn(name="loan_id")
+	private Loan loan;
+	
+	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH} )
+	@JoinColumn(name="category_id")
+	private Category category;
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	public String getISBNNo() {
 		return ISBNNo;
 	}
@@ -25,11 +49,11 @@ public class Book {
 	public void setAuthor(String author) {
 		this.author = author;
 	}
-	public String getName() {
-		return name;
+	public String getPublisher() {
+		return publisher;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setPublisher(String publisher) {
+		this.publisher = publisher;
 	}
 	public int getRackNo() {
 		return rackNo;
@@ -55,22 +79,20 @@ public class Book {
 	public void setDateOfPurchase(String dateOfPurchase) {
 		this.dateOfPurchase = dateOfPurchase;
 	}
-	public int getNoOfBooks() {
-		return noOfBooks;
-	}
-	public void setNoOfBooks(int noOfBooks) {
-		this.noOfBooks = noOfBooks;
+	public int getID() {
+		return ID;
 	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ID;
 		result = prime * result + ((ISBNNo == null) ? 0 : ISBNNo.hashCode());
 		result = prime * result + ((author == null) ? 0 : author.hashCode());
 		result = prime * result + ((dateOfPurchase == null) ? 0 : dateOfPurchase.hashCode());
 		result = prime * result + edition;
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + noOfBooks;
+		result = prime * result + ((publisher == null) ? 0 : publisher.hashCode());
 		result = prime * result + rackNo;
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		return result;
@@ -84,6 +106,8 @@ public class Book {
 		if (getClass() != obj.getClass())
 			return false;
 		Book other = (Book) obj;
+		if (ID != other.ID)
+			return false;
 		if (ISBNNo == null) {
 			if (other.ISBNNo != null)
 				return false;
@@ -106,7 +130,10 @@ public class Book {
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
-		if (noOfBooks != other.noOfBooks)
+		if (publisher == null) {
+			if (other.publisher != null)
+				return false;
+		} else if (!publisher.equals(other.publisher))
 			return false;
 		if (rackNo != other.rackNo)
 			return false;
@@ -119,10 +146,9 @@ public class Book {
 	}
 	@Override
 	public String toString() {
-		return "Book [ISBNNo=" + ISBNNo + ", author=" + author + ", name=" + name + ", rackNo=" + rackNo + ", status="
-				+ status + ", edition=" + edition + ", dateOfPurchase=" + dateOfPurchase + ", noOfBooks=" + noOfBooks
-				+ "]";
+		return "Book [ID=" + ID + ", name=" + name + ", ISBNNo=" + ISBNNo + ", author=" + author + ", publisher="
+				+ publisher + ", rackNo=" + rackNo + ", status=" + status + ", edition=" + edition + ", dateOfPurchase="
+				+ dateOfPurchase + "]";
 	}
-	
-	
+
 }

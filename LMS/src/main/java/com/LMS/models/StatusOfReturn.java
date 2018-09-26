@@ -1,16 +1,23 @@
 package com.LMS.models;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 public class StatusOfReturn {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int ID;
 	private int memberId;
 	private String bookTitle;
 	private int catNo;
 	private String issueDate;
 	private String expiryDate;
 	private double fineAmount;
+	
 	public String getBookTitle() {
 		return bookTitle;
 	}
