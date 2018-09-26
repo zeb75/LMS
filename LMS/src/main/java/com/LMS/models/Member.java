@@ -1,5 +1,6 @@
 package com.LMS.models;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,8 +19,8 @@ public class Member {
 	private String name;
 	private String address;
 	private String phoneNo;
-	private String registrationDate;
-	private int noBooksIssued;
+	private LocalDate registrationDate;
+	private int noOfBooksIssued;
 	private int maxBooksLimit;
 
 	@OneToMany(mappedBy = "ID", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH} )
@@ -58,20 +59,20 @@ public class Member {
 		this.phoneNo = phoneNo;
 	}
 
-	public String getRegistrationDate() {
+	public LocalDate getRegistrationDate() {
 		return registrationDate;
 	}
 
-	public void setRegistrationDate(String registrationDate) {
+	public void setRegistrationDate(LocalDate registrationDate) {
 		this.registrationDate = registrationDate;
 	}
 
-	public int getNoBooksIssued() {
-		return noBooksIssued;
+	public int getNoOfBooksIssued() {
+		return noOfBooksIssued;
 	}
 
-	public void setNoBooksIssued(int noBooksIssued) {
-		this.noBooksIssued = noBooksIssued;
+	public void setNoOfBooksIssued(int noOfBooksIssued) {
+		this.noOfBooksIssued = noOfBooksIssued;
 	}
 
 	public int getMaxBooksLimit() {
@@ -128,7 +129,7 @@ public class Member {
 		result = prime * result + ((loans == null) ? 0 : loans.hashCode());
 		result = prime * result + maxBooksLimit;
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + noBooksIssued;
+		result = prime * result + noOfBooksIssued;
 		result = prime * result + ((phoneNo == null) ? 0 : phoneNo.hashCode());
 		result = prime * result + ((registrationDate == null) ? 0 : registrationDate.hashCode());
 		result = prime * result + ((statusOfIssues == null) ? 0 : statusOfIssues.hashCode());
@@ -169,7 +170,7 @@ public class Member {
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
-		if (noBooksIssued != other.noBooksIssued)
+		if (noOfBooksIssued != other.noOfBooksIssued)
 			return false;
 		if (phoneNo == null) {
 			if (other.phoneNo != null)
@@ -197,11 +198,11 @@ public class Member {
 	@Override
 	public String toString() {
 		return "Member [ID=" + ID + ", name=" + name + ", address=" + address + ", phoneNo=" + phoneNo
-				+ ", registrationDate=" + registrationDate + ", noBooksIssued=" + noBooksIssued + ", maxBooksLimit="
+				+ ", registrationDate=" + registrationDate + ", noOfBooksIssued=" + noOfBooksIssued + ", maxBooksLimit="
 				+ maxBooksLimit + ", loans=" + loans + ", fines=" + fines + ", statusOfIssues=" + statusOfIssues
 				+ ", statusOfReturns=" + statusOfReturns + "]";
 	}
-	
+
 	
 	
 }
