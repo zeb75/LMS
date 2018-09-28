@@ -12,20 +12,20 @@ public class Fine {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int ID;
-	private double amount;
 	private LocalDate date;
+	private double amount;
 	
-	public double getAmount() {
-		return amount;
-	}
-	public void setAmount(double amount) {
-		this.amount = amount;
-	}
 	public LocalDate getDate() {
 		return date;
 	}
 	public void setDate(LocalDate date) {
 		this.date = date;
+	}
+	public double getAmount() {
+		return amount;
+	}
+	public void setAmount(double amount) {
+		this.amount = amount;
 	}
 	public int getID() {
 		return ID;
@@ -63,8 +63,8 @@ public class Fine {
 	}
 	@Override
 	public String toString() {
-		return "Fine [ID=" + ID + ", amount=" + amount + ", date=" + date + "]";
+		return "Fine [ID=" + ID + ", date=" + date + ", amount=" + amount + "]";
 	}
-	
+
 
 }

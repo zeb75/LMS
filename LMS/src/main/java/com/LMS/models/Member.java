@@ -24,7 +24,17 @@ public class Member {
 	private int maxBooksLimit;
 
 	@OneToMany(mappedBy = "ID", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH} )
-	private List<Loan> loans = new ArrayList<>();
+	private List<Loan> memberLoans = new ArrayList<>();
+	
+	public void startLoan(Loan loan) {
+		memberLoans.add(loan);
+		loan.setMember(this);
+		}
+	
+	public void endLoan(Loan loan) {
+		loan.setMember(null);
+		memberLoans.remove(loan);
+		}
 	
 	@OneToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH} )
 	private List<Fine> fines = new ArrayList<>();
@@ -83,12 +93,12 @@ public class Member {
 		this.maxBooksLimit = maxBooksLimit;
 	}
 
-	public List<Loan> getLoans() {
-		return loans;
+	public List<Loan> getMemberLoans() {
+		return memberLoans;
 	}
 
-	public void setLoans(List<Loan> loans) {
-		this.loans = loans;
+	public void setMemberLoans(List<Loan> memberLoans) {
+		this.memberLoans = memberLoans;
 	}
 
 	public List<Fine> getFines() {
@@ -126,8 +136,8 @@ public class Member {
 		result = prime * result + ID;
 		result = prime * result + ((address == null) ? 0 : address.hashCode());
 		result = prime * result + ((fines == null) ? 0 : fines.hashCode());
-		result = prime * result + ((loans == null) ? 0 : loans.hashCode());
 		result = prime * result + maxBooksLimit;
+		result = prime * result + ((memberLoans == null) ? 0 : memberLoans.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + noOfBooksIssued;
 		result = prime * result + ((phoneNo == null) ? 0 : phoneNo.hashCode());
@@ -158,12 +168,12 @@ public class Member {
 				return false;
 		} else if (!fines.equals(other.fines))
 			return false;
-		if (loans == null) {
-			if (other.loans != null)
-				return false;
-		} else if (!loans.equals(other.loans))
-			return false;
 		if (maxBooksLimit != other.maxBooksLimit)
+			return false;
+		if (memberLoans == null) {
+			if (other.memberLoans != null)
+				return false;
+		} else if (!memberLoans.equals(other.memberLoans))
 			return false;
 		if (name == null) {
 			if (other.name != null)
@@ -199,10 +209,9 @@ public class Member {
 	public String toString() {
 		return "Member [ID=" + ID + ", name=" + name + ", address=" + address + ", phoneNo=" + phoneNo
 				+ ", registrationDate=" + registrationDate + ", noOfBooksIssued=" + noOfBooksIssued + ", maxBooksLimit="
-				+ maxBooksLimit + ", loans=" + loans + ", fines=" + fines + ", statusOfIssues=" + statusOfIssues
-				+ ", statusOfReturns=" + statusOfReturns + "]";
+				+ maxBooksLimit + ", memberLoans=" + memberLoans + ", fines=" + fines + ", statusOfIssues="
+				+ statusOfIssues + ", statusOfReturns=" + statusOfReturns + "]";
 	}
 
-	
 	
 }

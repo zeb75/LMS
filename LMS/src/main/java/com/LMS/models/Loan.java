@@ -3,7 +3,6 @@ package com.LMS.models;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+
 @Entity
 public class Loan {
 	@Id
@@ -23,18 +22,25 @@ public class Loan {
 	private int maxNoOfDays;
 	private int maxNoOfBooks; 
 
-	@OneToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH} )
-	private Bill bill;
-	
 	@OneToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH} )
 	private List<Fine> fines = new ArrayList<>();
 	
 	@OneToMany(mappedBy = "loan",cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH} )
-	private List<Book> books = new ArrayList<>();
+	private List<Book> borrowedBooks = new ArrayList<>();
+	
+	public void borrowBook(Book book) {
+		borrowedBooks.add(book);
+		book.setLoan(this);
+		}
+	
+	public void returnBook (Book book) {
+		book.setLoan(null);
+		borrowedBooks.remove(book);
+	}
 	
 	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH} )
 	@JoinColumn(name= "member_id")
-	private Member members;
+	private Member member;
 
 	public int getBookId() {
 		return bookId;
@@ -68,14 +74,6 @@ public class Loan {
 		this.maxNoOfBooks = maxNoOfBooks;
 	}
 
-	public Bill getBill() {
-		return bill;
-	}
-
-	public void setBill(Bill bill) {
-		this.bill = bill;
-	}
-
 	public List<Fine> getFines() {
 		return fines;
 	}
@@ -84,20 +82,20 @@ public class Loan {
 		this.fines = fines;
 	}
 
-	public List<Book> getBooks() {
-		return books;
+	public List<Book> getBorrowedBooks() {
+		return borrowedBooks;
 	}
 
-	public void setBooks(List<Book> books) {
-		this.books = books;
+	public void setBorrowedBooks(List<Book> borrowedBooks) {
+		this.borrowedBooks = borrowedBooks;
 	}
 
-	public Member getMembers() {
-		return members;
+	public Member getMember() {
+		return member;
 	}
 
-	public void setMembers(Member members) {
-		this.members = members;
+	public void setMember(Member member) {
+		this.member = member;
 	}
 
 	public int getID() {
@@ -109,14 +107,13 @@ public class Loan {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ID;
-		result = prime * result + ((bill == null) ? 0 : bill.hashCode());
 		result = prime * result + bookId;
-		result = prime * result + ((books == null) ? 0 : books.hashCode());
+		result = prime * result + ((borrowedBooks == null) ? 0 : borrowedBooks.hashCode());
 		result = prime * result + ((fines == null) ? 0 : fines.hashCode());
 		result = prime * result + ((issueDate == null) ? 0 : issueDate.hashCode());
 		result = prime * result + maxNoOfBooks;
 		result = prime * result + maxNoOfDays;
-		result = prime * result + ((members == null) ? 0 : members.hashCode());
+		result = prime * result + ((member == null) ? 0 : member.hashCode());
 		return result;
 	}
 
@@ -131,17 +128,12 @@ public class Loan {
 		Loan other = (Loan) obj;
 		if (ID != other.ID)
 			return false;
-		if (bill == null) {
-			if (other.bill != null)
-				return false;
-		} else if (!bill.equals(other.bill))
-			return false;
 		if (bookId != other.bookId)
 			return false;
-		if (books == null) {
-			if (other.books != null)
+		if (borrowedBooks == null) {
+			if (other.borrowedBooks != null)
 				return false;
-		} else if (!books.equals(other.books))
+		} else if (!borrowedBooks.equals(other.borrowedBooks))
 			return false;
 		if (fines == null) {
 			if (other.fines != null)
@@ -157,10 +149,10 @@ public class Loan {
 			return false;
 		if (maxNoOfDays != other.maxNoOfDays)
 			return false;
-		if (members == null) {
-			if (other.members != null)
+		if (member == null) {
+			if (other.member != null)
 				return false;
-		} else if (!members.equals(other.members))
+		} else if (!member.equals(other.member))
 			return false;
 		return true;
 	}
@@ -168,9 +160,9 @@ public class Loan {
 	@Override
 	public String toString() {
 		return "Loan [ID=" + ID + ", bookId=" + bookId + ", issueDate=" + issueDate + ", maxNoOfDays=" + maxNoOfDays
-				+ ", maxNoOfBooks=" + maxNoOfBooks + ", bill=" + bill + ", fines=" + fines + ", books=" + books
-				+ ", members=" + members + "]";
+				+ ", maxNoOfBooks=" + maxNoOfBooks + ", fines=" + fines + ", borrowedBooks=" + borrowedBooks
+				+ ", member=" + member + "]";
 	}
 
-	
+
 }

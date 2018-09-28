@@ -18,6 +18,7 @@ public class StatusOfIssue {
 	private LocalDate issueDate;
 	private LocalDate expiryDate;
 	private int attemptsLeft;
+	
 	public int getMemberId() {
 		return memberId;
 	}

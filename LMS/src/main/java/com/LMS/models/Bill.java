@@ -1,5 +1,7 @@
 package com.LMS.models;
 
+import java.time.LocalDate;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,12 +13,21 @@ public class Bill {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int ID;
-	private String date;
+	private LocalDate date;
 	private double amount;
-	public String getDate() {
+	
+	public void createBill() {
+		
+	}
+	
+	public void updateBill() {
+		
+	}
+	
+	public LocalDate getDate() {
 		return date;
 	}
-	public void setDate(String date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 	public double getAmount() {
@@ -64,5 +75,5 @@ public class Bill {
 		return "Bill [ID=" + ID + ", date=" + date + ", amount=" + amount + "]";
 	}
 	
-
+	
 }

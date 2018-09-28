@@ -19,6 +19,7 @@ public class StatusOfReturn {
 	private LocalDate issueDate;
 	private LocalDate expiryDate;
 	private double fineAmount;
+	
 	public int getMemberId() {
 		return memberId;
 	}
