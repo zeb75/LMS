@@ -18,7 +18,8 @@ public class Author {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int ID;
-	private String name;
+	private String firstName;
+	private String lastName;
 	
 	@ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH} )
 	@JoinTable(name = "authors_books"
@@ -39,12 +40,20 @@ public class Author {
 		}
 	}
 
-	public String getName() {
-		return name;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public List<Book> getAuthoredBooks() {
@@ -65,7 +74,8 @@ public class Author {
 		int result = 1;
 		result = prime * result + ID;
 		result = prime * result + ((authoredBooks == null) ? 0 : authoredBooks.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
+		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
 		return result;
 	}
 
@@ -85,19 +95,23 @@ public class Author {
 				return false;
 		} else if (!authoredBooks.equals(other.authoredBooks))
 			return false;
-		if (name == null) {
-			if (other.name != null)
+		if (firstName == null) {
+			if (other.firstName != null)
 				return false;
-		} else if (!name.equals(other.name))
+		} else if (!firstName.equals(other.firstName))
+			return false;
+		if (lastName == null) {
+			if (other.lastName != null)
+				return false;
+		} else if (!lastName.equals(other.lastName))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Author [ID=" + ID + ", name=" + name + ", authoredBooks=" + authoredBooks + "]";
+		return "Author [ID=" + ID + ", firstName=" + firstName + ", lastName=" + lastName + ", authoredBooks="
+				+ authoredBooks + "]";
 	}
-	
-	
 
 }

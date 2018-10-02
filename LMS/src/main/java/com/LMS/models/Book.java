@@ -15,14 +15,14 @@ public class Book {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int ID;
-	private String name;
+	private String title;
 	private String ISBNNo;
-	private String author;
-	private String publisher;
-	private int rackNo;
+	private int shelfNo;
 	private String status;
 	private int edition;
 	private LocalDate dateOfPurchase;
+	private boolean isRefBook;
+	private String description;
 	
 	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH} )
 	@JoinColumn(name="loan_id")
@@ -31,13 +31,13 @@ public class Book {
 	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH} )
 	@JoinColumn(name="category_id")
 	private Category category;
-	
-	public String getName() {
-		return name;
+
+	public String getTitle() {
+		return title;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public String getISBNNo() {
@@ -48,28 +48,12 @@ public class Book {
 		ISBNNo = iSBNNo;
 	}
 
-	public String getAuthor() {
-		return author;
+	public int getShelfNo() {
+		return shelfNo;
 	}
 
-	public void setAuthor(String author) {
-		this.author = author;
-	}
-
-	public String getPublisher() {
-		return publisher;
-	}
-
-	public void setPublisher(String publisher) {
-		this.publisher = publisher;
-	}
-
-	public int getRackNo() {
-		return rackNo;
-	}
-
-	public void setRackNo(int rackNo) {
-		this.rackNo = rackNo;
+	public void setShelfNo(int shelfNo) {
+		this.shelfNo = shelfNo;
 	}
 
 	public String getStatus() {
@@ -94,6 +78,22 @@ public class Book {
 
 	public void setDateOfPurchase(LocalDate dateOfPurchase) {
 		this.dateOfPurchase = dateOfPurchase;
+	}
+
+	public boolean isRefBook() {
+		return isRefBook;
+	}
+
+	public void setRefBook(boolean isRefBook) {
+		this.isRefBook = isRefBook;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public Loan getLoan() {
@@ -122,15 +122,15 @@ public class Book {
 		int result = 1;
 		result = prime * result + ID;
 		result = prime * result + ((ISBNNo == null) ? 0 : ISBNNo.hashCode());
-		result = prime * result + ((author == null) ? 0 : author.hashCode());
 		result = prime * result + ((category == null) ? 0 : category.hashCode());
 		result = prime * result + ((dateOfPurchase == null) ? 0 : dateOfPurchase.hashCode());
+		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + edition;
+		result = prime * result + (isRefBook ? 1231 : 1237);
 		result = prime * result + ((loan == null) ? 0 : loan.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((publisher == null) ? 0 : publisher.hashCode());
-		result = prime * result + rackNo;
+		result = prime * result + shelfNo;
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
+		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		return result;
 	}
 
@@ -150,11 +150,6 @@ public class Book {
 				return false;
 		} else if (!ISBNNo.equals(other.ISBNNo))
 			return false;
-		if (author == null) {
-			if (other.author != null)
-				return false;
-		} else if (!author.equals(other.author))
-			return false;
 		if (category == null) {
 			if (other.category != null)
 				return false;
@@ -165,39 +160,41 @@ public class Book {
 				return false;
 		} else if (!dateOfPurchase.equals(other.dateOfPurchase))
 			return false;
+		if (description == null) {
+			if (other.description != null)
+				return false;
+		} else if (!description.equals(other.description))
+			return false;
 		if (edition != other.edition)
+			return false;
+		if (isRefBook != other.isRefBook)
 			return false;
 		if (loan == null) {
 			if (other.loan != null)
 				return false;
 		} else if (!loan.equals(other.loan))
 			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		if (publisher == null) {
-			if (other.publisher != null)
-				return false;
-		} else if (!publisher.equals(other.publisher))
-			return false;
-		if (rackNo != other.rackNo)
+		if (shelfNo != other.shelfNo)
 			return false;
 		if (status == null) {
 			if (other.status != null)
 				return false;
 		} else if (!status.equals(other.status))
 			return false;
+		if (title == null) {
+			if (other.title != null)
+				return false;
+		} else if (!title.equals(other.title))
+			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Book [ID=" + ID + ", name=" + name + ", ISBNNo=" + ISBNNo + ", author=" + author + ", publisher="
-				+ publisher + ", rackNo=" + rackNo + ", status=" + status + ", edition=" + edition + ", dateOfPurchase="
-				+ dateOfPurchase + ", loan=" + loan + ", category=" + category + "]";
+		return "Book [ID=" + ID + ", title=" + title + ", ISBNNo=" + ISBNNo + ", shelfNo=" + shelfNo + ", status="
+				+ status + ", edition=" + edition + ", dateOfPurchase=" + dateOfPurchase + ", isRefBook=" + isRefBook
+				+ ", description=" + description + ", loan=" + loan + ", category=" + category + "]";
 	}
 
-
+	
 }

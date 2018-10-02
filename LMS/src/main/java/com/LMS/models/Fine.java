@@ -1,11 +1,14 @@
 package com.LMS.models;
 
 import java.time.LocalDate;
-
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 
 @Entity
 public class Fine {
@@ -14,6 +17,11 @@ public class Fine {
 	private int ID;
 	private LocalDate date;
 	private double amount;
+	
+	
+	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH} )
+	@JoinColumn(name="bill_id")
+	private Bill bill;
 	
 	public LocalDate getDate() {
 		return date;

@@ -16,7 +16,8 @@ public class Member {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int ID;
-	private String name;
+	private String firstName;
+	private String lastName;
 	private String address;
 	private String phoneNo;
 	private LocalDate registrationDate;
@@ -45,12 +46,20 @@ public class Member {
 	@OneToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH} )
 	private List<StatusOfReturn> statusOfReturns = new ArrayList<>();
 
-	public String getName() {
-		return name;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public String getAddress() {
@@ -136,9 +145,10 @@ public class Member {
 		result = prime * result + ID;
 		result = prime * result + ((address == null) ? 0 : address.hashCode());
 		result = prime * result + ((fines == null) ? 0 : fines.hashCode());
+		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
+		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
 		result = prime * result + maxBooksLimit;
 		result = prime * result + ((memberLoans == null) ? 0 : memberLoans.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + noOfBooksIssued;
 		result = prime * result + ((phoneNo == null) ? 0 : phoneNo.hashCode());
 		result = prime * result + ((registrationDate == null) ? 0 : registrationDate.hashCode());
@@ -168,17 +178,22 @@ public class Member {
 				return false;
 		} else if (!fines.equals(other.fines))
 			return false;
+		if (firstName == null) {
+			if (other.firstName != null)
+				return false;
+		} else if (!firstName.equals(other.firstName))
+			return false;
+		if (lastName == null) {
+			if (other.lastName != null)
+				return false;
+		} else if (!lastName.equals(other.lastName))
+			return false;
 		if (maxBooksLimit != other.maxBooksLimit)
 			return false;
 		if (memberLoans == null) {
 			if (other.memberLoans != null)
 				return false;
 		} else if (!memberLoans.equals(other.memberLoans))
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
 			return false;
 		if (noOfBooksIssued != other.noOfBooksIssued)
 			return false;
@@ -207,10 +222,10 @@ public class Member {
 
 	@Override
 	public String toString() {
-		return "Member [ID=" + ID + ", name=" + name + ", address=" + address + ", phoneNo=" + phoneNo
-				+ ", registrationDate=" + registrationDate + ", noOfBooksIssued=" + noOfBooksIssued + ", maxBooksLimit="
-				+ maxBooksLimit + ", memberLoans=" + memberLoans + ", fines=" + fines + ", statusOfIssues="
-				+ statusOfIssues + ", statusOfReturns=" + statusOfReturns + "]";
+		return "Member [ID=" + ID + ", firstName=" + firstName + ", lastName=" + lastName + ", address=" + address
+				+ ", phoneNo=" + phoneNo + ", registrationDate=" + registrationDate + ", noOfBooksIssued="
+				+ noOfBooksIssued + ", maxBooksLimit=" + maxBooksLimit + ", memberLoans=" + memberLoans + ", fines="
+				+ fines + ", statusOfIssues=" + statusOfIssues + ", statusOfReturns=" + statusOfReturns + "]";
 	}
 
 	
