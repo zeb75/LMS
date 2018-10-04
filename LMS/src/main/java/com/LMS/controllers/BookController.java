@@ -12,8 +12,11 @@ import com.LMS.data_access.BookDao;
 import com.LMS.data_access.CategoryDao;
 import com.LMS.data_access.PublisherDao;
 import com.LMS.models.Author;
+import com.LMS.models.Book;
+import com.LMS.models.BookViewModel;
 import com.LMS.models.Category;
 import com.LMS.models.Publisher;
+
 
 @Controller
 public class BookController {
@@ -36,11 +39,33 @@ public String index()
 return "index";
 }
 
+//@GetMapping("/showcategories")
+//public String showCategories(Model model) {
+//model.addAttribute("allCategories", categoryDao.findAll());
+//
+//return "showcategories";
+//}
+//
+
 @GetMapping("/book")
-public String book()
+public String book(Model model)
 {
-return "book";
+//	model.addAttribute("BookViewModel", new BookViewModel());
+	model.addAttribute("allCategories", categoryDao.findAll());
+	model.addAttribute("allAuthors", authorDao.findAll());
+	model.addAttribute("allPublishers", publisherDao.findAll());
+//	Book emptyBook = new Book();
+//	model.addAttribute("book", emptyBook);
+	return "book";
 }
+
+//@PostMapping("/book")
+//public String addBook(@ModelAttribute BookViewModel bookViewModel, @ModelAttribute ("book")Book book, Model model) {
+//	model.addAttribute("allCategories", categoryDao.findAll());
+//	model.addAttribute("bookViewModel", bookViewModel);
+//	System.out.println(book);
+//	return "book";
+//}
 
 @GetMapping("/author")
 public String author(Model model)

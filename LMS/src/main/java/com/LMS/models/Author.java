@@ -1,5 +1,6 @@
 package com.LMS.models;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class Author {
 	private int ID;
 	private String firstName;
 	private String lastName;
+	private LocalDate birthDate;
 	
 	@ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH} )
 	@JoinTable(name = "authors_books"
@@ -56,6 +58,14 @@ public class Author {
 		this.lastName = lastName;
 	}
 
+	public LocalDate getBirthDate() {
+		return birthDate;
+	}
+
+	public void setBirthDate(LocalDate birthDate) {
+		this.birthDate = birthDate;
+	}
+
 	public List<Book> getAuthoredBooks() {
 		return authoredBooks;
 	}
@@ -74,6 +84,7 @@ public class Author {
 		int result = 1;
 		result = prime * result + ID;
 		result = prime * result + ((authoredBooks == null) ? 0 : authoredBooks.hashCode());
+		result = prime * result + ((birthDate == null) ? 0 : birthDate.hashCode());
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
 		return result;
@@ -95,6 +106,11 @@ public class Author {
 				return false;
 		} else if (!authoredBooks.equals(other.authoredBooks))
 			return false;
+		if (birthDate == null) {
+			if (other.birthDate != null)
+				return false;
+		} else if (!birthDate.equals(other.birthDate))
+			return false;
 		if (firstName == null) {
 			if (other.firstName != null)
 				return false;
@@ -110,8 +126,8 @@ public class Author {
 
 	@Override
 	public String toString() {
-		return "Author [ID=" + ID + ", firstName=" + firstName + ", lastName=" + lastName + ", authoredBooks="
-				+ authoredBooks + "]";
+		return "Author [ID=" + ID + ", firstName=" + firstName + ", lastName=" + lastName + ", birthDate=" + birthDate
+				+ ", authoredBooks=" + authoredBooks + "]";
 	}
 
 }

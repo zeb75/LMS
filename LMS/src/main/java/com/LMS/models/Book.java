@@ -9,7 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-
 @Entity
 public class Book {
 	@Id
@@ -17,11 +16,11 @@ public class Book {
 	private int ID;
 	private String title;
 	private String ISBNNo;
-	private int shelfNo;
+	private String shelf;
 	private String status;
-	private int edition;
+	private String edition;
 	private LocalDate dateOfPurchase;
-	private boolean isRefBook;
+	private boolean RefBook;
 	private String description;
 	
 	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH} )
@@ -48,12 +47,12 @@ public class Book {
 		ISBNNo = iSBNNo;
 	}
 
-	public int getShelfNo() {
-		return shelfNo;
+	public String getShelf() {
+		return shelf;
 	}
 
-	public void setShelfNo(int shelfNo) {
-		this.shelfNo = shelfNo;
+	public void setShelf(String shelf) {
+		this.shelf = shelf;
 	}
 
 	public String getStatus() {
@@ -64,11 +63,11 @@ public class Book {
 		this.status = status;
 	}
 
-	public int getEdition() {
+	public String getEdition() {
 		return edition;
 	}
 
-	public void setEdition(int edition) {
+	public void setEdition(String edition) {
 		this.edition = edition;
 	}
 
@@ -81,11 +80,11 @@ public class Book {
 	}
 
 	public boolean isRefBook() {
-		return isRefBook;
+		return RefBook;
 	}
 
-	public void setRefBook(boolean isRefBook) {
-		this.isRefBook = isRefBook;
+	public void setRefBook(boolean refBook) {
+		RefBook = refBook;
 	}
 
 	public String getDescription() {
@@ -122,13 +121,13 @@ public class Book {
 		int result = 1;
 		result = prime * result + ID;
 		result = prime * result + ((ISBNNo == null) ? 0 : ISBNNo.hashCode());
+		result = prime * result + (RefBook ? 1231 : 1237);
 		result = prime * result + ((category == null) ? 0 : category.hashCode());
 		result = prime * result + ((dateOfPurchase == null) ? 0 : dateOfPurchase.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
-		result = prime * result + edition;
-		result = prime * result + (isRefBook ? 1231 : 1237);
+		result = prime * result + ((edition == null) ? 0 : edition.hashCode());
 		result = prime * result + ((loan == null) ? 0 : loan.hashCode());
-		result = prime * result + shelfNo;
+		result = prime * result + ((shelf == null) ? 0 : shelf.hashCode());
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		return result;
@@ -150,6 +149,8 @@ public class Book {
 				return false;
 		} else if (!ISBNNo.equals(other.ISBNNo))
 			return false;
+		if (RefBook != other.RefBook)
+			return false;
 		if (category == null) {
 			if (other.category != null)
 				return false;
@@ -165,16 +166,20 @@ public class Book {
 				return false;
 		} else if (!description.equals(other.description))
 			return false;
-		if (edition != other.edition)
-			return false;
-		if (isRefBook != other.isRefBook)
+		if (edition == null) {
+			if (other.edition != null)
+				return false;
+		} else if (!edition.equals(other.edition))
 			return false;
 		if (loan == null) {
 			if (other.loan != null)
 				return false;
 		} else if (!loan.equals(other.loan))
 			return false;
-		if (shelfNo != other.shelfNo)
+		if (shelf == null) {
+			if (other.shelf != null)
+				return false;
+		} else if (!shelf.equals(other.shelf))
 			return false;
 		if (status == null) {
 			if (other.status != null)
@@ -191,8 +196,8 @@ public class Book {
 
 	@Override
 	public String toString() {
-		return "Book [ID=" + ID + ", title=" + title + ", ISBNNo=" + ISBNNo + ", shelfNo=" + shelfNo + ", status="
-				+ status + ", edition=" + edition + ", dateOfPurchase=" + dateOfPurchase + ", isRefBook=" + isRefBook
+		return "Book [ID=" + ID + ", title=" + title + ", ISBNNo=" + ISBNNo + ", shelf=" + shelf + ", status=" + status
+				+ ", edition=" + edition + ", dateOfPurchase=" + dateOfPurchase + ", RefBook=" + RefBook
 				+ ", description=" + description + ", loan=" + loan + ", category=" + category + "]";
 	}
 
