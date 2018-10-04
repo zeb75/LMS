@@ -17,6 +17,8 @@ import com.LMS.models.BookViewModel;
 import com.LMS.models.Category;
 import com.LMS.models.Publisher;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
+
 
 @Controller
 public class BookController {
@@ -39,33 +41,27 @@ public String index()
 return "index";
 }
 
-//@GetMapping("/showcategories")
-//public String showCategories(Model model) {
-//model.addAttribute("allCategories", categoryDao.findAll());
-//
-//return "showcategories";
-//}
-//
 
 @GetMapping("/book")
 public String book(Model model)
 {
-//	model.addAttribute("BookViewModel", new BookViewModel());
+	Book emptyBook = new Book();
+	model.addAttribute("book", emptyBook);
 	model.addAttribute("allCategories", categoryDao.findAll());
 	model.addAttribute("allAuthors", authorDao.findAll());
 	model.addAttribute("allPublishers", publisherDao.findAll());
-//	Book emptyBook = new Book();
-//	model.addAttribute("book", emptyBook);
 	return "book";
 }
 
-//@PostMapping("/book")
-//public String addBook(@ModelAttribute BookViewModel bookViewModel, @ModelAttribute ("book")Book book, Model model) {
-//	model.addAttribute("allCategories", categoryDao.findAll());
-//	model.addAttribute("bookViewModel", bookViewModel);
-//	System.out.println(book);
-//	return "book";
-//}
+@PostMapping("/book")
+public String addBook(@ModelAttribute ("book")Book book, Model model) 
+{
+	model.addAttribute("allCategories", categoryDao.findAll());
+	model.addAttribute("allAuthors", authorDao.findAll());
+	model.addAttribute("allPublishers", publisherDao.findAll());
+	book = bookDao.save(book);
+	return "book";
+}
 
 @GetMapping("/author")
 public String author(Model model)
