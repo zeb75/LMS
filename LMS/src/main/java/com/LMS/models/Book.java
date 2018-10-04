@@ -1,12 +1,17 @@
 package com.LMS.models;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -30,6 +35,20 @@ public class Book {
 	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH} )
 	@JoinColumn(name="category_id")
 	private Category category;
+	
+	@ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH} )
+	@JoinTable(name = "authors_books"
+	, joinColumns = @JoinColumn(name = "book_id")
+	, inverseJoinColumns = @JoinColumn(name = "author_id")
+	)
+	private List<Author> authors = new ArrayList<>();
+	
+	@ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH} )
+	@JoinTable(name = "Publishers_books"
+	, joinColumns = @JoinColumn(name = "book_id")
+	, inverseJoinColumns = @JoinColumn(name = "publisher_id")
+	)
+	private List<Publisher> publishers = new ArrayList<>();
 
 	public String getTitle() {
 		return title;
@@ -111,6 +130,22 @@ public class Book {
 		this.category = category;
 	}
 
+	public List<Author> getAuthors() {
+		return authors;
+	}
+
+	public void setAuthors(List<Author> authors) {
+		this.authors = authors;
+	}
+
+	public List<Publisher> getPublishers() {
+		return publishers;
+	}
+
+	public void setPublishers(List<Publisher> publishers) {
+		this.publishers = publishers;
+	}
+
 	public int getID() {
 		return ID;
 	}
@@ -122,11 +157,13 @@ public class Book {
 		result = prime * result + ID;
 		result = prime * result + ((ISBNNo == null) ? 0 : ISBNNo.hashCode());
 		result = prime * result + (RefBook ? 1231 : 1237);
+		result = prime * result + ((authors == null) ? 0 : authors.hashCode());
 		result = prime * result + ((category == null) ? 0 : category.hashCode());
 		result = prime * result + ((dateOfPurchase == null) ? 0 : dateOfPurchase.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((edition == null) ? 0 : edition.hashCode());
 		result = prime * result + ((loan == null) ? 0 : loan.hashCode());
+		result = prime * result + ((publishers == null) ? 0 : publishers.hashCode());
 		result = prime * result + ((shelf == null) ? 0 : shelf.hashCode());
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
@@ -150,6 +187,11 @@ public class Book {
 		} else if (!ISBNNo.equals(other.ISBNNo))
 			return false;
 		if (RefBook != other.RefBook)
+			return false;
+		if (authors == null) {
+			if (other.authors != null)
+				return false;
+		} else if (!authors.equals(other.authors))
 			return false;
 		if (category == null) {
 			if (other.category != null)
@@ -176,6 +218,11 @@ public class Book {
 				return false;
 		} else if (!loan.equals(other.loan))
 			return false;
+		if (publishers == null) {
+			if (other.publishers != null)
+				return false;
+		} else if (!publishers.equals(other.publishers))
+			return false;
 		if (shelf == null) {
 			if (other.shelf != null)
 				return false;
@@ -198,8 +245,10 @@ public class Book {
 	public String toString() {
 		return "Book [ID=" + ID + ", title=" + title + ", ISBNNo=" + ISBNNo + ", shelf=" + shelf + ", status=" + status
 				+ ", edition=" + edition + ", dateOfPurchase=" + dateOfPurchase + ", RefBook=" + RefBook
-				+ ", description=" + description + ", loan=" + loan + ", category=" + category + "]";
+				+ ", description=" + description + ", loan=" + loan + ", category=" + category + ", authors=" + authors
+				+ ", publishers=" + publishers + "]";
 	}
+
 
 	
 }

@@ -1,11 +1,10 @@
-package com.LMS.models;
+package com.LMS.data_access;
 
 public class BookViewModel {
 
 	private int categoryID;
 	private int authorID;
 	private int publisherID;
-	
 	public int getCategoryID() {
 		return categoryID;
 	}

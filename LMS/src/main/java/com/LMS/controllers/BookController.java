@@ -13,12 +13,8 @@ import com.LMS.data_access.CategoryDao;
 import com.LMS.data_access.PublisherDao;
 import com.LMS.models.Author;
 import com.LMS.models.Book;
-import com.LMS.models.BookViewModel;
 import com.LMS.models.Category;
 import com.LMS.models.Publisher;
-
-import ch.qos.logback.core.net.SyslogOutputStream;
-
 
 @Controller
 public class BookController {
@@ -56,10 +52,12 @@ public String book(Model model)
 @PostMapping("/book")
 public String addBook(@ModelAttribute ("book")Book book, Model model) 
 {
+	System.out.println(book);
 	model.addAttribute("allCategories", categoryDao.findAll());
 	model.addAttribute("allAuthors", authorDao.findAll());
 	model.addAttribute("allPublishers", publisherDao.findAll());
 	book = bookDao.save(book);
+	System.out.println(book);
 	return "book";
 }
 
