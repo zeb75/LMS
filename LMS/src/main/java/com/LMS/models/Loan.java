@@ -19,8 +19,7 @@ public class Loan {
 	private int ID;
 	private int bookId;
 	private LocalDate issueDate;	
-	private int maxNoOfDays;
-	private int maxNoOfBooks; 
+	private int maxNoOfDays; 
 
 	@OneToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH} )
 	private List<Fine> fines = new ArrayList<>();
@@ -66,14 +65,6 @@ public class Loan {
 		this.maxNoOfDays = maxNoOfDays;
 	}
 
-	public int getMaxNoOfBooks() {
-		return maxNoOfBooks;
-	}
-
-	public void setMaxNoOfBooks(int maxNoOfBooks) {
-		this.maxNoOfBooks = maxNoOfBooks;
-	}
-
 	public List<Fine> getFines() {
 		return fines;
 	}
@@ -111,7 +102,6 @@ public class Loan {
 		result = prime * result + ((borrowedBooks == null) ? 0 : borrowedBooks.hashCode());
 		result = prime * result + ((fines == null) ? 0 : fines.hashCode());
 		result = prime * result + ((issueDate == null) ? 0 : issueDate.hashCode());
-		result = prime * result + maxNoOfBooks;
 		result = prime * result + maxNoOfDays;
 		result = prime * result + ((member == null) ? 0 : member.hashCode());
 		return result;
@@ -145,8 +135,6 @@ public class Loan {
 				return false;
 		} else if (!issueDate.equals(other.issueDate))
 			return false;
-		if (maxNoOfBooks != other.maxNoOfBooks)
-			return false;
 		if (maxNoOfDays != other.maxNoOfDays)
 			return false;
 		if (member == null) {
@@ -160,9 +148,12 @@ public class Loan {
 	@Override
 	public String toString() {
 		return "Loan [ID=" + ID + ", bookId=" + bookId + ", issueDate=" + issueDate + ", maxNoOfDays=" + maxNoOfDays
-				+ ", maxNoOfBooks=" + maxNoOfBooks + ", fines=" + fines + ", borrowedBooks=" + borrowedBooks
-				+ ", member=" + member + "]";
+				+ "]";
 	}
 
 
-}
+	
+	
+	}
+
+

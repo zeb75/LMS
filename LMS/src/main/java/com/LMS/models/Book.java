@@ -36,6 +36,10 @@ public class Book {
 	@JoinColumn(name="category_id")
 	private Category category;
 	
+	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH} )
+	@JoinColumn(name="publisher_id")
+	private Publisher publisher;
+	
 	@ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH} )
 	@JoinTable(name = "authors_books"
 	, joinColumns = @JoinColumn(name = "book_id")
@@ -43,12 +47,9 @@ public class Book {
 	)
 	private List<Author> authors = new ArrayList<>();
 	
-	@ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH} )
-	@JoinTable(name = "Publishers_books"
-	, joinColumns = @JoinColumn(name = "book_id")
-	, inverseJoinColumns = @JoinColumn(name = "publisher_id")
-	)
-	private List<Publisher> publishers = new ArrayList<>();
+	public void addAuthor(Author author) {
+		authors.add(author);
+	}
 
 	public String getTitle() {
 		return title;
@@ -130,20 +131,20 @@ public class Book {
 		this.category = category;
 	}
 
+	public Publisher getPublisher() {
+		return publisher;
+	}
+
+	public void setPublisher(Publisher publisher) {
+		this.publisher = publisher;
+	}
+
 	public List<Author> getAuthors() {
 		return authors;
 	}
 
 	public void setAuthors(List<Author> authors) {
 		this.authors = authors;
-	}
-
-	public List<Publisher> getPublishers() {
-		return publishers;
-	}
-
-	public void setPublishers(List<Publisher> publishers) {
-		this.publishers = publishers;
 	}
 
 	public int getID() {
@@ -163,7 +164,7 @@ public class Book {
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((edition == null) ? 0 : edition.hashCode());
 		result = prime * result + ((loan == null) ? 0 : loan.hashCode());
-		result = prime * result + ((publishers == null) ? 0 : publishers.hashCode());
+		result = prime * result + ((publisher == null) ? 0 : publisher.hashCode());
 		result = prime * result + ((shelf == null) ? 0 : shelf.hashCode());
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
@@ -218,10 +219,10 @@ public class Book {
 				return false;
 		} else if (!loan.equals(other.loan))
 			return false;
-		if (publishers == null) {
-			if (other.publishers != null)
+		if (publisher == null) {
+			if (other.publisher != null)
 				return false;
-		} else if (!publishers.equals(other.publishers))
+		} else if (!publisher.equals(other.publisher))
 			return false;
 		if (shelf == null) {
 			if (other.shelf != null)
@@ -245,10 +246,8 @@ public class Book {
 	public String toString() {
 		return "Book [ID=" + ID + ", title=" + title + ", ISBNNo=" + ISBNNo + ", shelf=" + shelf + ", status=" + status
 				+ ", edition=" + edition + ", dateOfPurchase=" + dateOfPurchase + ", RefBook=" + RefBook
-				+ ", description=" + description + ", loan=" + loan + ", category=" + category + ", authors=" + authors
-				+ ", publishers=" + publishers + "]";
+				+ ", description=" + description + ", loan=" + loan + "]";
 	}
-
-
+	
 	
 }

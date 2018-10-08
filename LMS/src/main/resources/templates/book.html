@@ -12,21 +12,21 @@
     	<p>Title: <input type="text" name="title"/></p>
     	<p>ISBN: <input type="text" name="ISBNNo"/></p>
     		<p>Author: 
-    		<select>
+    		<select name="authorID">
     			<option th:each="author: ${allAuthors}" 
     				th:value="${author.ID}"	
     				th:text="${author.firstName}">
       			</option>
 			</select></p>
     		<p>Publisher: 
-    		<select>
+    		<select name="publisherID">
     			<option th:each="publisher: ${allPublishers}" 
     				th:value="${publisher.ID}"	
     				th:text="${publisher.name}">
       			</option>
 			</select></p>
     	<p>Category: 
-    		<select>
+    		<select name="categoryID">
     			<option th:each="category: ${allCategories}" 
     				th:value="${category.ID}"	
     				th:text="${category.name}">

@@ -1,5 +1,7 @@
 package com.LMS.controllers;
 
+import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +27,7 @@ public class MemberController {
 
 	@PostMapping("/member")
 	public String addMember(@ModelAttribute("member")Member member) {
+		member.setRegistrationDate(LocalDate.now());
 		member = memberDao.save(member);
 		return "member";
 	}

@@ -16,13 +16,16 @@ public class Member {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int ID;
+	private String email;
+	private String password;
 	private String firstName;
 	private String lastName;
 	private String address;
+	private String zipCode;
+	private String city;
 	private String phoneNo;
 	private LocalDate registrationDate;
-	private int noOfBooksIssued;
-	private int maxBooksLimit;
+	private int maxBooksLimit = 20;
 
 	@OneToMany(mappedBy = "ID", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH} )
 	private List<Loan> memberLoans = new ArrayList<>();
@@ -45,6 +48,22 @@ public class Member {
 	
 	@OneToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH} )
 	private List<StatusOfReturn> statusOfReturns = new ArrayList<>();
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 	public String getFirstName() {
 		return firstName;
@@ -70,6 +89,22 @@ public class Member {
 		this.address = address;
 	}
 
+	public String getZipCode() {
+		return zipCode;
+	}
+
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
 	public String getPhoneNo() {
 		return phoneNo;
 	}
@@ -84,14 +119,6 @@ public class Member {
 
 	public void setRegistrationDate(LocalDate registrationDate) {
 		this.registrationDate = registrationDate;
-	}
-
-	public int getNoOfBooksIssued() {
-		return noOfBooksIssued;
-	}
-
-	public void setNoOfBooksIssued(int noOfBooksIssued) {
-		this.noOfBooksIssued = noOfBooksIssued;
 	}
 
 	public int getMaxBooksLimit() {
@@ -144,16 +171,19 @@ public class Member {
 		int result = 1;
 		result = prime * result + ID;
 		result = prime * result + ((address == null) ? 0 : address.hashCode());
+		result = prime * result + ((city == null) ? 0 : city.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((fines == null) ? 0 : fines.hashCode());
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
 		result = prime * result + maxBooksLimit;
 		result = prime * result + ((memberLoans == null) ? 0 : memberLoans.hashCode());
-		result = prime * result + noOfBooksIssued;
+		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((phoneNo == null) ? 0 : phoneNo.hashCode());
 		result = prime * result + ((registrationDate == null) ? 0 : registrationDate.hashCode());
 		result = prime * result + ((statusOfIssues == null) ? 0 : statusOfIssues.hashCode());
 		result = prime * result + ((statusOfReturns == null) ? 0 : statusOfReturns.hashCode());
+		result = prime * result + ((zipCode == null) ? 0 : zipCode.hashCode());
 		return result;
 	}
 
@@ -172,6 +202,16 @@ public class Member {
 			if (other.address != null)
 				return false;
 		} else if (!address.equals(other.address))
+			return false;
+		if (city == null) {
+			if (other.city != null)
+				return false;
+		} else if (!city.equals(other.city))
+			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
 			return false;
 		if (fines == null) {
 			if (other.fines != null)
@@ -195,7 +235,10 @@ public class Member {
 				return false;
 		} else if (!memberLoans.equals(other.memberLoans))
 			return false;
-		if (noOfBooksIssued != other.noOfBooksIssued)
+		if (password == null) {
+			if (other.password != null)
+				return false;
+		} else if (!password.equals(other.password))
 			return false;
 		if (phoneNo == null) {
 			if (other.phoneNo != null)
@@ -217,16 +260,24 @@ public class Member {
 				return false;
 		} else if (!statusOfReturns.equals(other.statusOfReturns))
 			return false;
+		if (zipCode == null) {
+			if (other.zipCode != null)
+				return false;
+		} else if (!zipCode.equals(other.zipCode))
+			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Member [ID=" + ID + ", firstName=" + firstName + ", lastName=" + lastName + ", address=" + address
-				+ ", phoneNo=" + phoneNo + ", registrationDate=" + registrationDate + ", noOfBooksIssued="
-				+ noOfBooksIssued + ", maxBooksLimit=" + maxBooksLimit + ", memberLoans=" + memberLoans + ", fines="
-				+ fines + ", statusOfIssues=" + statusOfIssues + ", statusOfReturns=" + statusOfReturns + "]";
+		return "Member [ID=" + ID + ", email=" + email + ", password=" + password + ", firstName=" + firstName
+				+ ", lastName=" + lastName + ", address=" + address + ", zipCode=" + zipCode + ", city=" + city
+				+ ", phoneNo=" + phoneNo + ", registrationDate=" + registrationDate + ", maxBooksLimit=" + maxBooksLimit
+				+ "]";
 	}
+
+	
+
 
 	
 }
