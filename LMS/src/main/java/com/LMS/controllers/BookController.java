@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import com.LMS.data_access.AuthorDao;
 import com.LMS.data_access.BookDao;
-import com.LMS.data_access.BookViewModel;
 import com.LMS.data_access.CategoryDao;
 import com.LMS.data_access.PublisherDao;
 import com.LMS.models.Author;
 import com.LMS.models.Book;
+import com.LMS.models.BookViewModel;
 import com.LMS.models.Category;
 import com.LMS.models.Publisher;
 

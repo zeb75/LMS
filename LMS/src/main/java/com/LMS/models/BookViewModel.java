@@ -1,4 +1,4 @@
-package com.LMS.data_access;
+package com.LMS.models;
 
 import java.time.LocalDate;
 
